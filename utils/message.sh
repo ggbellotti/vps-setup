@@ -2,22 +2,12 @@
 
 # Função para imprimir títulos
 print_title() {
-    # Gerar o texto ASCII art com figlet
-    local title="$(figlet -f Doom "$1")"
-    
-    # Obter a largura do terminal
-    local COLUMNS=$(tput cols)
-    
-    # Centralizar o texto
-    echo "$title" | awk -v col=${COLUMNS} '{
-        line=$0; gsub(/./, " ", line); space=(col-length($0))/2; 
-        printf "%*s%s\n", space, "", $0 
-    }'
+    echo -e "\e[1;34m$1\e[0m" | awk '{printf "%*s\n", int(('${COLUMNS:-$(tput cols)}' + length)/2), $0}'
 }
 
 # Função para imprimir mensagens de sucesso
 print_subtitle() {
-    echo -e "\e[38;2;255;215;0m$1\e[0m" | awk '{printf "%*s\n", int(('${COLUMNS:-$(tput cols)}' + length)/2), $0}'
+    echo -e "\e[1;36m$1\e[0m" | awk '{printf "%*s\n", int(('${COLUMNS:-$(tput cols)}' + length)/2), $0}'
 }
 
 # Função para imprimir mensagens normais centralizadas
@@ -28,7 +18,7 @@ print_message() {
 
 # Função para imprimir mensagens de aviso
 print_warning() {
-    echo -e "\e[1;33mAVISO: $1\e[0m" | awk '{printf "%*s\n", int(('${COLUMNS:-$(tput cols)}' + length)/2), $0}'
+    echo -e "\e[1;33m$1\e[0m" | awk '{printf "%*s\n", int(('${COLUMNS:-$(tput cols)}' + length)/2), $0}'
 }
 
 # Função para imprimir mensagens de erro

@@ -5,6 +5,5 @@ packages=(
     "apt-transport-https"
     "ca-certificates"
     "curl"
-    "figlet"
     "docker-ce"
 )
